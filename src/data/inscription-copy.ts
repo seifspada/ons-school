@@ -1,0 +1,186 @@
+// Textes FR/AR de la page /inscription (fichier séparé : copy.ts reste inchangé).
+
+export const inscriptionCopy = {
+  fr: {
+    hero: {
+      home: "Accueil",
+      current: "Inscription",
+      title: "Inscription",
+      subtitle: "Rejoignez ONS School et offrez à votre enfant une éducation d’excellence.",
+      imageAlt: "Élèves souriants d’ONS School",
+    },
+    why: {
+      title: "Pourquoi choisir ONS School ?",
+      items: [
+        { title: "Une éducation de qualité", text: "Un enseignement moderne adapté à chaque élève." },
+        { title: "Un accompagnement personnalisé", text: "Une équipe pédagogique à l’écoute." },
+        { title: "Un environnement stimulant", text: "Pour apprendre, grandir et réussir." },
+        { title: "Des valeurs fortes", text: "Respect, confiance et réussite." },
+      ],
+      tagline: "Ensemble pour un avenir meilleur",
+    },
+    tabs: { ariaLabel: "Choix de l’établissement", primary: "École", college: "Collège" },
+    forms: {
+      primary: {
+        title: "Inscription – École Primaire",
+        intro: "Remplissez le formulaire ci-dessous pour inscrire votre enfant à l’école primaire.",
+      },
+      college: {
+        title: "Inscription – Collège",
+        intro: "Remplissez le formulaire ci-dessous pour inscrire votre enfant au collège.",
+      },
+    },
+    levels: {
+      "1": "1ère année", "2": "2ème année", "3": "3ème année",
+      "4": "4ème année", "5": "5ème année", "6": "6ème année",
+      "7": "7ème année", "8": "8ème année", "9": "9ème année",
+    } as Record<string, string>,
+    fields: {
+      lastName: "Nom de l’enfant",
+      firstName: "Prénom de l’enfant",
+      birthDate: "Date de naissance",
+      birthDateHint: "JJ/MM/AAAA",
+      sex: "Sexe",
+      select: "Sélectionner",
+      male: "Garçon",
+      female: "Fille",
+      phone: "Téléphone des parents",
+      email: "Email",
+      address: "Adresse",
+      level: "Niveau souhaité",
+      schoolYear: "Année scolaire",
+    },
+    documents: {
+      title: "Pièces jointes (facultatif)",
+      hint: "Formats acceptés : PDF, JPG, PNG — 5 Mo maximum par fichier.",
+      items: {
+        birthExtract: { label: "Extrait de naissance", hint: "Copie de l’extrait de naissance de l’enfant" },
+        photo: { label: "Photo de l’enfant", hint: "Photo d’identité récente" },
+        schoolCertificate: { label: "Certificat de scolarité", hint: "Établissement précédent, le cas échéant" },
+        healthRecord: { label: "Carnet de santé", hint: "Copie des pages utiles" },
+        reportCards: { label: "Derniers bulletins scolaires", hint: "Bulletins de l’année précédente" },
+        other: { label: "Autre justificatif", hint: "Tout document complémentaire utile" },
+      } as Record<string, { label: string; hint: string }>,
+      choose: "Choisir un fichier",
+      change: "Remplacer",
+      remove: "Supprimer le fichier",
+    },
+    errors: {
+      required: "Ce champ est obligatoire.",
+      name: "Veuillez saisir au moins 2 caractères.",
+      birthDate: "Veuillez saisir une date de naissance valide.",
+      phone: "Numéro de téléphone invalide.",
+      email: "Adresse email invalide.",
+      address: "Veuillez saisir une adresse complète.",
+      fileType: "Format non accepté (PDF, JPG ou PNG uniquement).",
+      fileSize: "Le fichier dépasse 5 Mo.",
+      submit: "Une erreur est survenue. Veuillez réessayer.",
+      fix: "Veuillez corriger les champs signalés.",
+    },
+    submit: "Soumettre ma demande",
+    submitting: "Envoi en cours…",
+    success: {
+      title: "Préinscription envoyée !",
+      text: "Merci. Votre demande de préinscription a bien été enregistrée. Notre équipe vous contactera prochainement.",
+      again: "Nouvelle demande",
+    },
+    contact: {
+      title: "Une question ?",
+      text: "Notre équipe est à votre disposition pour vous accompagner.",
+      cta: "Nous contacter",
+    },
+  },
+
+  ar: {
+    hero: {
+      home: "الرئيسية",
+      current: "التسجيل",
+      title: "التسجيل",
+      subtitle: "انضمّوا إلى مدرسة أنس وامنحوا طفلكم تعليمًا متميّزًا.",
+      imageAlt: "تلاميذ مبتسمون من مدرسة أنس",
+    },
+    why: {
+      title: "لماذا تختارون مدرسة أنس؟",
+      items: [
+        { title: "تعليم ذو جودة", text: "تعليم حديث يتلاءم مع كل تلميذ." },
+        { title: "مرافقة شخصية", text: "فريق بيداغوجي منصت لكم." },
+        { title: "بيئة محفّزة", text: "للتعلّم والنموّ والنجاح." },
+        { title: "قيم راسخة", text: "الاحترام والثقة والنجاح." },
+      ],
+      tagline: "معًا من أجل مستقبل أفضل",
+    },
+    tabs: { ariaLabel: "اختيار المؤسسة", primary: "الابتدائية", college: "الإعدادية" },
+    forms: {
+      primary: {
+        title: "التسجيل – المدرسة الابتدائية",
+        intro: "املؤوا الاستمارة التالية لتسجيل طفلكم بالمدرسة الابتدائية.",
+      },
+      college: {
+        title: "التسجيل – المدرسة الإعدادية",
+        intro: "املؤوا الاستمارة التالية لتسجيل طفلكم بالمدرسة الإعدادية.",
+      },
+    },
+    levels: {
+      "1": "السنة الأولى", "2": "السنة الثانية", "3": "السنة الثالثة",
+      "4": "السنة الرابعة", "5": "السنة الخامسة", "6": "السنة السادسة",
+      "7": "السنة السابعة", "8": "السنة الثامنة", "9": "السنة التاسعة",
+    } as Record<string, string>,
+    fields: {
+      lastName: "لقب الطفل",
+      firstName: "اسم الطفل",
+      birthDate: "تاريخ الولادة",
+      birthDateHint: "يوم/شهر/سنة",
+      sex: "الجنس",
+      select: "اختر",
+      male: "ذكر",
+      female: "أنثى",
+      phone: "هاتف الولي",
+      email: "البريد الإلكتروني",
+      address: "العنوان",
+      level: "المستوى المطلوب",
+      schoolYear: "السنة الدراسية",
+    },
+    documents: {
+      title: "المرفقات (اختياري)",
+      hint: "الصيغ المقبولة: PDF وJPG وPNG — بحدّ أقصى 5 ميغابايت لكل ملف.",
+      items: {
+        birthExtract: { label: "مضمون الولادة", hint: "نسخة من مضمون ولادة الطفل" },
+        photo: { label: "صورة الطفل", hint: "صورة شمسية حديثة" },
+        schoolCertificate: { label: "شهادة مدرسية", hint: "من المؤسسة السابقة إن وجدت" },
+        healthRecord: { label: "دفتر العلاج", hint: "نسخة من الصفحات المفيدة" },
+        reportCards: { label: "آخر الأعداد المدرسية", hint: "بطاقات أعداد السنة الماضية" },
+        other: { label: "وثيقة أخرى", hint: "أي وثيقة إضافية مفيدة" },
+      } as Record<string, { label: string; hint: string }>,
+      choose: "اختيار ملف",
+      change: "استبدال",
+      remove: "حذف الملف",
+    },
+    errors: {
+      required: "هذا الحقل إجباري.",
+      name: "يرجى إدخال حرفين على الأقل.",
+      birthDate: "يرجى إدخال تاريخ ولادة صحيح.",
+      phone: "رقم الهاتف غير صالح.",
+      email: "عنوان البريد الإلكتروني غير صالح.",
+      address: "يرجى إدخال عنوان كامل.",
+      fileType: "الصيغة غير مقبولة (PDF أو JPG أو PNG فقط).",
+      fileSize: "حجم الملف يتجاوز 5 ميغابايت.",
+      submit: "حدث خطأ. يرجى المحاولة مرة أخرى.",
+      fix: "يرجى تصحيح الحقول المشار إليها.",
+    },
+    submit: "إرسال طلبي",
+    submitting: "جارٍ الإرسال…",
+    success: {
+      title: "تم إرسال التسجيل المسبق!",
+      text: "شكرًا لكم. تم تسجيل طلب التسجيل المسبق بنجاح. سيتصل بكم فريقنا قريبًا.",
+      again: "طلب جديد",
+    },
+    contact: {
+      title: "هل لديكم سؤال؟",
+      text: "فريقنا رهن إشارتكم لمرافقتكم.",
+      cta: "اتصلوا بنا",
+    },
+  },
+} as const;
+
+export type InscriptionLang = keyof typeof inscriptionCopy;
+export type InscriptionCopy = (typeof inscriptionCopy)[InscriptionLang];

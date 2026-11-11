@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  images: {
+    formats: ["image/webp"],
+    qualities: [82],
+  },
   experimental: {
     agentFeedback: true,
   },
@@ -14,6 +18,15 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/acceuil",
+        permanent: false,
+      },
+    ];
   },
 };
 
