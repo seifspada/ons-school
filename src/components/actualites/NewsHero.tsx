@@ -1,49 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useSiteLanguage } from "@/src/components/layout/SiteShell";
 import { copy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import { PageBreadcrumb } from "@/src/components/ui/PageBreadcrumb";
 
-/* Soleil décoratif (spirale + rayons) */
-function Sun({ className = "" }: { className?: string }) {
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 80 80"
+      viewBox="0 0 44 44"
       className={className}
       fill="none"
       stroke="currentColor"
-      strokeWidth="3.5"
+      strokeWidth="5"
       strokeLinecap="round"
       aria-hidden="true"
     >
-      <path d="M40 40c0-4 5-5 7-2s0 9-6 10-12-5-11-12 8-14 17-13 17 9 16 18" />
-      <path d="M40 4v9M40 67v9M4 40h9M67 40h9M14 14l6 6M60 60l6 6M66 14l-6 6M20 60l-6 6" />
-    </svg>
-  );
-}
-
-/* Petits traits décoratifs */
-function Strokes({
-  className = "",
-  color = "var(--blue-dark)",
-}: {
-  className?: string;
-  color?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      className={className}
-      fill="none"
-      stroke={color}
-      strokeWidth="4.5"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
-      <path d="M8 30l6-14" />
-      <path d="M19 33l4-16" />
-      <path d="M30 28l3-12" />
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
     </svg>
   );
 }
@@ -51,32 +29,64 @@ function Strokes({
 export default function NewsHero() {
   const { lang } = useSiteLanguage();
   const t = copy[lang].newsPage.hero;
+  const isArabic = lang === "ar";
 
   return (
     <section
-      className="relative overflow-hidden bg-[linear-gradient(180deg,#eef6fd_0%,#fff_70%)]"
+      className="relative overflow-hidden bg-white"
       aria-labelledby="news-hero-title"
     >
       {/* Forme orange à gauche */}
       <span
-        className="pointer-events-none absolute start-[-95px] top-[60px] z-[2] h-[260px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+        className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
         aria-hidden="true"
       />
 
-      <div className="container relative z-[3] grid min-h-[clamp(320px,40vw,420px)] items-center gap-6 py-[clamp(28px,4vw,48px)] lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="relative z-[4]">
+      {/* Image à droite, fondu vers la gauche */}
+      <motion.div
+        className="relative h-[clamp(300px,70vw,420px)] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.65 }}
+      >
+        <Image
+          src={getOptimizedImageSrc("/images/anas_school_images/hero-actualite.png")}
+          alt={t.imageAlt}
+          fill
+          preload
+          sizes="(max-width: 1024px) 100vw, 64vw"
+          className="object-cover object-top"
+        />
+      </motion.div>
+
+      {/* Vague orange → verte en bas à droite */}
+      <span
+        className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+        aria-hidden="true"
+      />
+
+      <div className="container relative z-[3] py-[clamp(32px,5vw,56px)] lg:min-h-[560px]">
+        <motion.div
+          className="max-w-[560px]"
+          initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <PageBreadcrumb currentLabel={t.title} />
-          <h1
-            id="news-hero-title"
-            className="m-0 mt-6 text-[clamp(44px,6vw,72px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
-          >
-            {t.title}
-          </h1>
-          <p className="mb-0 mt-4 max-w-[400px] text-[clamp(17px,2vw,22px)] font-[560] leading-[1.45] text-[var(--navy)]">
+          <div className="flex items-start gap-3">
+            <h1
+              id="news-hero-title"
+              className="m-0 mt-4 text-[clamp(40px,5.4vw,66px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
+            >
+              {t.title}
+            </h1>
+            <Sparks className="mt-5 hidden size-[44px] shrink-0 text-[var(--orange)] lg:block" />
+          </div>
+          <p className="mb-0 mt-4 max-w-[440px] text-[clamp(16px,1.8vw,20px)] font-[560] leading-[1.6] text-[var(--navy)]">
             {t.description}
           </p>
           <svg
-            className="mt-5 rtl:-scale-x-100"
+            className="mt-4 rtl:-scale-x-100"
             width="150"
             height="14"
             viewBox="0 0 150 14"
@@ -90,37 +100,7 @@ export default function NewsHero() {
               strokeLinecap="round"
             />
           </svg>
-        </div>
-
-        {/* Image : bord gauche arrondi, fondu vers le bas */}
-        <div className="relative h-[clamp(240px,32vw,380px)] max-[560px]:h-[clamp(200px,60vw,280px)]">
-          <Sun className="pointer-events-none absolute -start-4 -top-2 z-[5] hidden size-[72px] text-[var(--orange)] lg:block" />
-          <Strokes
-            className="pointer-events-none absolute start-[2%] top-[38%] z-[5] hidden size-[42px] lg:block"
-            color="var(--blue-dark)"
-          />
-          <Strokes
-            className="pointer-events-none absolute start-[4%] top-[58%] z-[5] hidden size-[40px] lg:block"
-            color="#6cb82c"
-          />
-
-          <div className="absolute inset-0 overflow-hidden rounded-s-[45%] rounded-ee-[40px] rounded-se-[40px] [mask-image:linear-gradient(to_bottom,#000_82%,transparent_100%)] max-[560px]:rounded-[28px]">
-            <Image
-              src="/images/optimized/hero-students.webp"
-              alt={t.imageAlt}
-              fill
-              preload
-              sizes="(max-width: 700px) calc(100vw - 36px), 56vw"
-              className="object-cover object-[center_25%]"
-            />
-          </div>
-
-          {/* Vague orange / verte en bas */}
-          <span
-            className="pointer-events-none absolute -bottom-5 end-[-8%] z-[6] hidden h-[80px] w-[62%] rotate-[-5deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[5deg]"
-            aria-hidden="true"
-          />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -28,7 +28,7 @@ The provided image assets are in `public/images/anas_school_images/`. The standa
 
 ## Image optimization
 
-Run `npm run optimize:images` to create local WebP copies in `public/images/optimized/`. The script uses Sharp at quality 83, preserves each source aspect ratio and never enlarges an image. `npm run dev` and `npm run build` run this step automatically; original files remain unchanged. `next/image` serves responsive WebP output at quality 82, with only each page's hero image preloaded. Next.js's default image loader remains enabled for Vercel CDN caching.
+Run `npm run optimize:images` to create local WebP copies for JPG and PNG images under `public/images/optimized/`. The script uses Sharp at quality 83 (90 for the primary-page hero), preserves each source aspect ratio and never enlarges an image. It includes both `anas_school_images/` and `activities/`; the `homepage-mockup-reference.jpg` design reference is intentionally skipped. `npm run dev` and `npm run build` run this step automatically; original files remain unchanged. Site image components resolve these optimized copies, while `next/image` serves responsive WebP output at quality 82 (90 for the primary-page hero), with only each page's hero image preloaded. Next.js's default image loader remains enabled for Vercel CDN caching.
 
 The source photographs are mostly under 500 pixels wide, and some activity/news thumbnails are under 200 pixels wide. WebP conversion reduces transfer size but cannot restore missing image detail; request larger originals for those assets before increasing their display resolution. `homepage-mockup-reference.jpg` is a design reference, not a website image, and is intentionally not converted or referenced by the site.
 

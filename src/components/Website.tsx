@@ -4,11 +4,11 @@ import { About } from "@/src/components/home/About";
 import { Activities } from "@/src/components/home/Activities";
 import { CallToAction } from "@/src/components/home/CallToAction";
 import { EducationLevels } from "@/src/components/home/EducationLevels";
-import { Hero } from "@/src/components/home/Hero";
 import { News } from "@/src/components/home/News";
 import { Statistics } from "@/src/components/home/Statistics";
 import { Testimonials } from "@/src/components/home/Testimonials";
 import { useSiteLanguage } from "@/src/components/layout/SiteShell";
+import Hero from "./home/Hero";
 
 export function Website() {
   const { lang } = useSiteLanguage();

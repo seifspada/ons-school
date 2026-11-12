@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 import type { SiteCopy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import { PageBreadcrumb } from "@/src/components/ui/PageBreadcrumb";
 import { Sparks } from "./ActivitiesDecor";
 
@@ -36,7 +37,7 @@ export default function ActivitiesHero({ t, isArabic, ActionIcon }: Props) {
         transition={{ duration: 0.65 }}
       >
         <Image
-          src={heroImage}
+          src={getOptimizedImageSrc(heroImage)}
           alt={t.imageAlt}
           fill
           preload

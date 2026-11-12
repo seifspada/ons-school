@@ -48,6 +48,25 @@ function UKFlagIcon({ size = 40 }: { size?: number }) {
   );
 }
 
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 44 44"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
+    </svg>
+  );
+}
+
 /* Ordre = celui de la capture :
    Maths, Sciences, Français, Anglais, Histoire-Géo, Informatique, Physique-Chimie, SVT */
 const subjectIcons: (LucideIcon | "uk")[] = [
@@ -93,68 +112,83 @@ export function CollegePage() {
   return (
     <main className="overflow-x-clip">
       {/* ============ HERO ============ */}
+            {/* ============ HERO ============ */}
       <section
         className="relative overflow-hidden bg-white"
         aria-labelledby="college-hero-title"
       >
-        <div className="container relative grid items-center gap-8 py-[clamp(40px,6vw,76px)] lg:grid-cols-[0.9fr_1.1fr]">
+        {/* Forme orange à gauche */}
+        <span
+          className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+          aria-hidden="true"
+        />
+
+        {/* Image à droite, fondu vers la gauche */}
+        <motion.div
+          className="relative h-[250px] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.65 }}
+        >
+          <SchoolImage
+            src="/images/anas_school_images/college-hero.jpg"
+            alt={text.hero.imageAlt}
+            preload
+            sizes="(max-width: 1024px) 100vw, 64vw"
+            className="object-cover object-[center_30%]"
+          />
+        </motion.div>
+
+        {/* Vague orange → verte en bas à droite */}
+        <span
+          className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+          aria-hidden="true"
+        />
+
+        {/* Décor : toque */}
+        <GraduationCap
+          className="pointer-events-none absolute end-[34%] top-6 z-[3] hidden text-[var(--orange)] lg:block"
+          size={78}
+          strokeWidth={1.4}
+          aria-hidden="true"
+        />
+
+        <div className="container relative z-[3] py-[clamp(32px,5vw,56px)] lg:min-h-[360px]">
           <motion.div
-            className="relative z-10"
-            initial={{ opacity: 0, x: lang === "ar" ? 22 : -22 }}
+            className="max-w-[560px]"
+            initial={{ opacity: 0, x: lang === "ar" ? 20 : -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.5 }}
           >
             <PageBreadcrumb currentLabel={text.hero.title} />
-            <h1
-              id="college-hero-title"
-              className="m-0 text-[clamp(46px,6.5vw,80px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
+            <div className="flex items-start gap-3">
+              <h1
+                id="college-hero-title"
+                className="m-0 mt-4 text-[clamp(40px,5.4vw,66px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
+              >
+                {text.hero.title}
+              </h1>
+              <Sparks className="mt-5 hidden size-[44px] shrink-0 text-[var(--orange)] lg:block" />
+            </div>
+            <p
+              className={`mb-0 mt-3 text-[clamp(22px,2.6vw,32px)] font-[800] leading-[1.15] tracking-[-0.03em] text-[var(--orange)] ${
+                lang === "ar" ? "font-[Tahoma,Arial,sans-serif]" : ""
+              }`}
             >
-              {text.hero.title}
-            </h1>
-            <p className="mb-0 mt-3 max-w-[460px] text-[clamp(26px,3.4vw,40px)] font-[800] leading-[1.12] tracking-[-0.03em] text-[var(--orange)]">
               {text.hero.subtitle}
             </p>
-            <p className="mb-7 mt-5 max-w-[470px] text-[15px] leading-[1.7] text-[var(--navy)]">
+            <p className="mb-6 mt-4 max-w-[440px] text-[15px] leading-[1.6] text-[var(--navy)]">
               {text.hero.description}
             </p>
             <Link
-              className="button button--orange min-h-[46px] gap-2 rounded-full px-6 text-[13px] shadow-[0_8px_20px_rgb(247_135_26_/_30%)] [&>svg:last-child]:rtl:rotate-180"
+              className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[var(--orange)] px-6 text-[14px] font-[740] text-white shadow-[0_8px_20px_rgb(247_135_26_/_30%)] transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[var(--orange-deep)] [&>svg:last-child]:rtl:rotate-180"
               href="#introduction"
+              style={{ color: "#fff" }}
             >
               <GraduationCap size={18} aria-hidden="true" />
               {text.hero.action}
-              <ArrowRight size={16} aria-hidden="true" />
+              <ArrowRight size={17} aria-hidden="true" />
             </Link>
-          </motion.div>
-
-          {/* Décor : toque */}
-          <GraduationCap
-            className="pointer-events-none absolute end-[34%] top-6 hidden text-[var(--orange)] lg:block"
-            size={78}
-            strokeWidth={1.4}
-            aria-hidden="true"
-          />
-
-          <motion.div
-            className="relative aspect-[1.2/1] min-h-[280px] max-[560px]:min-h-[240px]"
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.65, delay: 0.12 }}
-          >
-            <div className="absolute inset-0 overflow-hidden [clip-path:ellipse(125%_100%_at_100%_0%)] rtl:[clip-path:ellipse(125%_100%_at_0%_0%)]">
-              <SchoolImage
-                src="/images/anas_school_images/college-hero.jpg"
-                alt={text.hero.imageAlt}
-                preload
-                sizes="(max-width: 560px) 100vw, (max-width: 1190px) 60vw, 680px"
-                className="object-cover object-[center_30%]"
-              />
-            </div>
-            {/* Vagues orange / verte */}
-            <div
-              className="pointer-events-none absolute -bottom-3 end-0 h-[46px] w-[60%] rounded-[100%] bg-gradient-to-r from-[var(--orange)] to-[#7cc42a] opacity-95 rotate-[-4deg]"
-              aria-hidden="true"
-            />
           </motion.div>
         </div>
       </section>

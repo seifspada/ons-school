@@ -18,7 +18,7 @@ export const copy = {
     closeMenu: "Fermer le menu",
     hero: {
       eyebrow: "Bienvenue à",
-      name: "أونس سكول",
+      name: "أنس سكول",
       englishName: "ONS School",
       slogan: "L'éducation d'aujourd'hui, les réussites de demain !",
       discover: "Découvrir notre école",
@@ -271,7 +271,7 @@ export const copy = {
     closeMenu: "إغلاق القائمة",
     hero: {
       eyebrow: "مرحباً بكم في",
-      name: "أونس سكول",
+      name: "أنس سكول",
       englishName: "ONS School",
       slogan: "تعليم اليوم، نجاحات الغد!",
       discover: "اكتشفوا مدرستنا",
@@ -282,7 +282,7 @@ export const copy = {
       eyebrow: "عن مؤسستنا",
       title: "مدرسة خاصة ذات جودة",
       description:
-        "في مدرسة أونس سكول، نؤمن بتعليم حديث وشامل قائم على الرعاية، يرافق كل طفل في تعلمه ونموه.",
+        "في مدرسة أنس سكول، نؤمن بتعليم حديث وشامل قائم على الرعاية، يرافق كل طفل في تعلمه ونموه.",
       advantages: ["تأطير تربوي", "بيئة آمنة", "تنمية المواهب"],
     },
     levels: {
@@ -307,7 +307,7 @@ export const copy = {
       subtitle: "حياة مدرسية غنية وممتعة.",
     },
     statistics: {
-      eyebrow: "أونس سكول في أرقام",
+      eyebrow: "أنس سكول في أرقام",
       title: "مجتمع ينمو معاً",
       pending: "قيد التأكيد",
       labels: ["عدد التلاميذ", "سنوات الخبرة", "المعلمون", "نسبة الرضا"],
@@ -319,7 +319,7 @@ export const copy = {
       datePending: "التاريخ قيد التأكيد",
       items: {
         sport: {
-          title: "يوم رياضي في أونس سكول",
+          title: "يوم رياضي في أنس سكول",
           description: "يوم مليء بالحركة والتعاون ومتعة اللعب معاً.",
         },
         science: {
@@ -441,7 +441,7 @@ export const copy = {
       related: "اقرأ أيضًا",
       empty: "لا توجد أخبار حاليًا.",
       newsletter: {
-        title: "ابقوا على تواصل مع أونس سكول",
+        title: "ابقوا على تواصل مع أنس سكول",
         description: "توصلوا بآخر أخبارنا وفعالياتنا مباشرة في بريدكم الإلكتروني.",
         placeholder: "بريدكم الإلكتروني",
         button: "اشتراك",

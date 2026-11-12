@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 import { useSiteLanguage } from "@/src/components/layout/SiteShell";
 import { copy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import { categoryStyle, formatNewsDate } from "@/src/lib/news/format";
 import type { NewsArticle } from "@/src/lib/news/types";
 import NewsCard from "./NewsCard";
@@ -41,7 +42,7 @@ export default function NewsArticleView({ article, related }: { article: NewsArt
 
           <div className="relative my-7 h-[clamp(220px,42vw,430px)] overflow-hidden rounded-[22px] bg-[#e7f1f8] shadow-[0_16px_36px_rgb(18_53_104_/_12%)]">
             <Image
-              src={article.image.src}
+              src={getOptimizedImageSrc(article.image.src)}
               alt={article.image.alt[lang]}
               fill
               preload

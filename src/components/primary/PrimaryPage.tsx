@@ -34,52 +34,108 @@ const benefitIconClasses = [
   "bg-[#fff4dc] text-[#c98512]",
 ];
 
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 44 44"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
+    </svg>
+  );
+}
+
 export function PrimaryPage() {
   const { lang } = useSiteLanguage();
   const text = primaryPageCopy[lang];
 
   return (
     <main className="primary-page">
-      <section className="primary-hero" aria-labelledby="primary-hero-title">
-        <div className="container primary-hero-inner">
+            <section
+        className="relative overflow-hidden bg-white"
+        aria-labelledby="primary-hero-title"
+      >
+        {/* Forme orange à gauche */}
+        <span
+          className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+          aria-hidden="true"
+        />
+
+        {/* Image à droite, fondu vers la gauche */}
+        <motion.div
+          className="relative h-[clamp(260px,65vw,420px)] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.65 }}
+        >
+          <SchoolImage
+            src="/images/anas_school_images/primary-hero.jpg"
+            alt={text.hero.imageAlt}
+            preload
+            quality={90}
+            sizes="(min-width: 1024px) 64vw, 100vw"
+            className="object-cover object-[center_30%]"
+          />
+        </motion.div>
+
+        {/* Vague orange → verte en bas à droite */}
+        <span
+          className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+          aria-hidden="true"
+        />
+
+        <div className="container relative z-[3] py-[clamp(32px,5vw,56px)] lg:min-h-[420px]">
           <motion.div
-            className="primary-hero-copy"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
+            className="max-w-[560px]"
+            initial={{ opacity: 0, x: lang === "ar" ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <PageBreadcrumb currentLabel={text.hero.title} />
-            <p className="primary-hero-kicker">
-              <span aria-hidden="true">✦</span>
-              {lang === "fr" ? "Le premier pas vers l’avenir" : "الخطوة الأولى نحو المستقبل"}
+            <p className="mb-2 mt-4 text-[14px] font-[740] text-[var(--blue-dark)]">
+              <span aria-hidden="true">✦ </span>
+              {lang === "fr"
+                ? "Le premier pas vers l’avenir"
+                : "الخطوة الأولى نحو المستقبل"}
             </p>
-            <h1 id="primary-hero-title">{text.hero.title}</h1>
-            <p className="primary-hero-subtitle">{text.hero.subtitle}</p>
-            <p className="primary-hero-description">{text.hero.description}</p>
-            <Link className="button button--orange" href="/a-propos">
-              {text.hero.action}<ArrowRight size={17} aria-hidden="true" />
+            <div className="flex items-start gap-3">
+              <h1
+                id="primary-hero-title"
+                className="m-0 text-[clamp(40px,5.4vw,66px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
+              >
+                {text.hero.title}
+              </h1>
+              <Sparks className="mt-1 hidden size-[44px] shrink-0 text-[var(--orange)] lg:block" />
+            </div>
+            <p
+              className={`mb-0 mt-3 text-[clamp(22px,2.6vw,32px)] font-[800] leading-[1.15] tracking-[-0.03em] text-[var(--orange)] ${
+                lang === "ar" ? "font-[Tahoma,Arial,sans-serif]" : ""
+              }`}
+            >
+              {text.hero.subtitle}
+            </p>
+            <p className="mb-6 mt-4 max-w-[440px] text-[15px] leading-[1.6] text-[var(--navy)]">
+              {text.hero.description}
+            </p>
+            <Link
+              className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[var(--orange)] px-6 text-[14px] font-[740] text-white shadow-[0_8px_20px_rgb(247_135_26_/_30%)] transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[var(--orange-deep)] [&>svg:last-child]:rtl:rotate-180"
+              href="/a-propos"
+              style={{ color: "#fff" }}
+            >
+              {text.hero.action}
+              <ArrowRight size={17} aria-hidden="true" />
             </Link>
-          </motion.div>
-          <motion.div
-            className="primary-hero-photo"
-            initial={{ opacity: 0, x: lang === "ar" ? -22 : 22 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <SchoolImage
-              src="/images/anas_school_images/primary-hero.jpg"
-              alt={text.hero.imageAlt}
-              preload
-              sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 46vw, 46vw"
-            />
-            <span className="primary-hero-sticker" aria-hidden="true">
-              <Sparkles size={18} />
-              <span>{lang === "fr" ? "Découvrir" : "نكتشف"}</span>
-            </span>
           </motion.div>
         </div>
       </section>
-
       <section className="primary-intro section" aria-labelledby="primary-intro-title">
         <div className="container">
           <SectionHeading

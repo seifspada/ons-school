@@ -15,15 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: siteConfig.siteUrl ? new URL(siteConfig.siteUrl) : undefined,
+  metadataBase: siteConfig.siteUrl
+    ? new URL(siteConfig.siteUrl)
+    : process.env.NODE_ENV === "development"
+      ? new URL("http://localhost:3000")
+      : undefined,
   title: {
-    default: "ONS School — أونس سكول | Jelma, Sidi Bouzid",
+    default: "ONS School — أنس سكول | Jelma, Sidi Bouzid",
     template: "%s | ONS School",
   },
   description:
-    "ONS School (أونس سكول), école privée à Jelma, Sidi Bouzid. Enseignement primaire et collège dans un environnement bienveillant.",
+    "ONS School (أنس سكول), école privée à Jelma, Sidi Bouzid. Enseignement primaire et collège dans un environnement bienveillant.",
   openGraph: {
-    title: "ONS School — أونس سكول",
+    title: "ONS School — أنس سكول",
     description:
       "L'éducation d'aujourd'hui, les réussites de demain. École primaire et collège à Jelma, Sidi Bouzid.",
     locale: "fr_TN",
@@ -43,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ONS School — أونس سكول",
+    title: "ONS School — أنس سكول",
     description: "École privée à Jelma, Sidi Bouzid.",
     ...(siteConfig.siteUrl
       ? { images: ["/images/optimized/hero-students.webp"] }

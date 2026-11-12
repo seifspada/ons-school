@@ -21,44 +21,100 @@ import { copy } from "@/src/data/copy";
 const valueIcons = [BookOpen, ShieldCheck, Trophy];
 const principleIcons = [BookOpen, UsersRound, Lightbulb];
 const facilityIcons = [School, BookOpen, Sparkles];
-
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 44 44"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
+    </svg>
+  );
+}
 export function AboutPage() {
   const { lang } = useSiteLanguage();
   const text = aboutPageCopy[lang];
 
   return (
     <main className="bg-white">
-      <section
-        className="relative overflow-hidden bg-[radial-gradient(ellipse_at_72%_8%,rgb(222_239_255_/_86%),transparent_38%),linear-gradient(110deg,#fffdfa_1%,#fff_47%,#f5faff_100%)] py-[24px] pb-[34px] before:absolute before:top-[-35px] before:start-[-90px] before:h-[115%] before:w-[130px] before:rounded-[0_0_85%_0] before:bg-[linear-gradient(150deg,#ffb12b,#ffd37c_60%,transparent)] before:content-[''] after:absolute after:bottom-[-68px] after:end-[-40px] after:h-[110px] after:w-[48%] after:rounded-[100%_0_0_0] after:bg-[linear-gradient(155deg,#6daa28,#9aca4b)] after:content-[''] max-[850px]:py-[22px] max-[850px]:pb-[30px] max-[560px]:pt-[18px] max-[560px]:pb-[25px] max-[560px]:after:h-[60px]"
+           <section
+        className="relative overflow-hidden bg-white"
         aria-labelledby="about-hero-title"
       >
-        <div className="container relative z-[1] grid min-h-[320px] grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] items-center gap-[clamp(28px,5vw,68px)] max-[850px]:min-h-[290px] max-[850px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] max-[850px]:gap-[24px] max-[560px]:min-h-0 max-[560px]:grid-cols-1 max-[560px]:gap-[18px]">
+        {/* Forme orange à gauche */}
+        <span
+          className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+          aria-hidden="true"
+        />
+
+        {/* Image à droite, fondu vers la gauche */}
+        <motion.div
+          className="relative h-[250px] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.65 }}
+        >
+          <SchoolImage
+            src="/images/optimized/a-propos.webp"
+            alt={text.hero.imageAlt}
+            preload
+            sizes="(max-width: 1024px) 100vw, 64vw"
+            className="object-cover object-[center_30%]"
+          />
+        </motion.div>
+
+        {/* Vague orange → verte en bas à droite */}
+        <span
+          className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+          aria-hidden="true"
+        />
+
+        <div className="container relative z-[3] py-[clamp(32px,5vw,56px)] lg:min-h-[360px]">
           <motion.div
-            className="relative z-[1]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
+            className="max-w-[560px]"
+            initial={{ opacity: 0, x: lang === "ar" ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <PageBreadcrumb currentLabel={copy[lang].nav.about} />
-            <h1 id="about-hero-title" className="m-0 max-w-[440px] text-[clamp(32px,3.8vw,48px)] font-[820] leading-[1.03] tracking-[-0.045em] text-[var(--navy)] max-[850px]:text-[clamp(29px,4.2vw,39px)] max-[560px]:max-w-[440px] max-[560px]:text-[clamp(32px,9vw,42px)]">
-              {lang === "fr" ? <>Une école pour<br />apprendre, grandir<br /><span className="text-[var(--orange)]">et réussir</span></> : text.hero.title}
-            </h1>
-            <p className="mb-0 mt-[13px] w-fit font-[Tahoma,Arial,sans-serif] text-[clamp(18px,2vw,24px)] font-[730] leading-[1.5] text-[var(--navy)] max-[560px]:mt-[9px] max-[560px]:text-[19px]" lang="ar" dir="rtl">{text.hero.subtitle}</p>
-            <span className="ms-[45px] mt-[7px] block h-[4px] w-[120px] rounded-[100%] bg-[var(--orange)] max-[560px]:ms-8" aria-hidden="true" />
-          </motion.div>
-          <motion.div
-            className="relative h-[clamp(250px,31vw,370px)] overflow-hidden rounded-[36%_18px_18px_18px] bg-[#e7f1f8] shadow-[0_20px_46px_rgb(18_53_104_/_12%)] max-[850px]:h-[280px] max-[560px]:h-[clamp(220px,64vw,300px)] max-[560px]:rounded-[30%_15px_15px_15px] [&>img]:object-cover [&>img]:object-center"
-            initial={{ opacity: 0, x: lang === "ar" ? -24 : 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <SchoolImage
-              src="/images/optimized/a-propos.webp"
-              alt={text.hero.imageAlt}
-              preload
-              sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 52vw, 54vw"
+            <div className="flex items-start gap-3">
+              <h1
+                id="about-hero-title"
+                className="m-0 mt-4 max-w-[480px] text-[clamp(36px,4.8vw,60px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[var(--navy)]"
+              >
+                {lang === "fr" ? (
+                  <>
+                    Une école pour
+                    <br />
+                    apprendre, grandir
+                    <br />
+                    <span className="text-[var(--orange)]">et réussir</span>
+                  </>
+                ) : (
+                  text.hero.title
+                )}
+              </h1>
+              <Sparks className="mt-5 hidden size-[44px] shrink-0 text-[var(--orange)] lg:block" />
+            </div>
+            <p
+              className="mb-0 mt-4 w-fit font-[Tahoma,Arial,sans-serif] text-[clamp(20px,2.2vw,28px)] font-[730] leading-[1.5] text-[var(--navy)]"
+              lang="ar"
+              dir="rtl"
+            >
+              {text.hero.subtitle}
+            </p>
+            <span
+              className="ms-[45px] mt-[7px] block h-[4px] w-[120px] rounded-[100%] bg-[var(--orange)] max-[560px]:ms-8"
+              aria-hidden="true"
             />
-            <span className="absolute start-[14px] top-[15px] grid size-[46px] place-items-center rounded-2xl bg-white/90 text-[var(--orange)] shadow-[0_7px_20px_rgb(18_53_104_/_11%)] animate-[float_5s_ease-in-out_infinite] max-[560px]:size-[38px]" aria-hidden="true"><Sparkles /></span>
           </motion.div>
         </div>
       </section>
@@ -74,7 +130,7 @@ export function AboutPage() {
           >
             <SchoolImage
               src="/images/anas_school_images/school-building.jpg"
-              alt={lang === "fr" ? "Le bâtiment d’ONS School" : "مبنى أونس سكول"}
+              alt={lang === "fr" ? "Le bâtiment d’ONS School" : "مبنى أنس سكول"}
               sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 47vw, 46vw"
             />
             <span className="absolute right-[15px] bottom-[-14px] inline-flex items-center gap-2 rounded-xl border border-[#f1e7d6] bg-white px-[14px] py-[9px] text-xs font-[730] text-[var(--brown)] shadow-[0_6px_19px_rgb(18_53_104_/_10%)]">

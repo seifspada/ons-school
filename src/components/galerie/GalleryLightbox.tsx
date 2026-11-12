@@ -6,6 +6,7 @@ import Counter from "yet-another-react-lightbox/plugins/counter";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/plugins/counter.css";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import type { Language } from "@/src/lib/types";
 import type { GalleryPhoto } from "@/src/lib/gallery/types";
 
@@ -27,7 +28,7 @@ export default function GalleryLightbox({ photos, index, lang, labels, onClose }
       index={index}
       plugins={[Captions, Counter]}
       slides={photos.map((p) => ({
-        src: p.fullImage ?? p.image,
+        src: getOptimizedImageSrc(p.fullImage ?? p.image),
         alt: p.alt[lang],
         title: p.title[lang],
         description: p.description[lang],

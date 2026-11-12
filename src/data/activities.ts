@@ -15,16 +15,12 @@ export const activities = [
   },
   {
     id: "art",
-    image: "/images/anas_school_images/activity-art.jpg",
+    image: "/images/optimized/activities/activity-arts.webp",
     title: { fr: "Arts & créativité", ar: "الفنون والإبداع" },
     icon: "✿",
   },
-  {
-    id: "trip",
-    image: "/images/anas_school_images/activity-trip.jpg",
-    title: { fr: "Sorties scolaires", ar: "الرحلات المدرسية" },
-    icon: "⌖",
-  },
+  
+ 
 ] satisfies {
   id: string;
   image: string;

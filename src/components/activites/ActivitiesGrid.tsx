@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Bot, Bus, Palette, Volleyball, type LucideIcon } from "lucide-react";
 import type { SiteCopy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 
 type ActivityKey = keyof SiteCopy["activitiesPage"]["items"];
 
@@ -73,7 +74,7 @@ export default function ActivitiesGrid({ t, items, ActionIcon }: Props) {
               >
                 <div className="relative h-[150px] overflow-hidden max-[560px]:h-[190px]">
                   <Image
-                    src={image}
+                    src={getOptimizedImageSrc(image)}
                     alt={item.alt}
                     fill
                     sizes="(max-width: 560px) 100vw, (max-width: 1000px) 46vw, 280px"

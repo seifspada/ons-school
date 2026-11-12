@@ -15,6 +15,7 @@ import {
 import { useState, type FormEvent } from "react";
 import { contactCopy } from "@/src/data/contact-copy";
 import { copy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import { useSiteLanguage } from "@/src/components/layout/SiteShell";
 import { PageBreadcrumb } from "@/src/components/ui/PageBreadcrumb";
 
@@ -22,7 +23,24 @@ type ContactField = "name" | "email" | "subject" | "message";
 
 const formEndpoint = process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT;
 type ContactLanguageCopy = (typeof contactCopy)[keyof typeof contactCopy];
-
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 44 44"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
+    </svg>
+  );
+}
 export default function ContactPage() {
   const { lang } = useSiteLanguage();
   const isArabic = lang === "ar";
@@ -41,38 +59,72 @@ export default function ContactPage() {
 
   return (
     <main lang={lang} dir={isArabic ? "rtl" : "ltr"} className="bg-white text-[#17243a]">
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#eaf4ff] via-[#f5faff] to-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-10 pt-7 sm:px-6 lg:min-h-[390px] lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 lg:pb-12">
-          <div className="relative z-10">
+            <section
+        className="relative overflow-hidden bg-white"
+        aria-labelledby="contact-hero-title"
+      >
+        {/* Forme orange à gauche */}
+        <span
+          className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+          aria-hidden="true"
+        />
+
+        {/* Image à droite, fondu vers la gauche */}
+        <div className="relative h-[clamp(300px,70vw,420px)] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]">
+          <Image
+            src={getOptimizedImageSrc("/images/anas_school_images/hero-contact.png")}
+            alt={text.imageAlt}
+            fill
+            priority
+            sizes="(min-width: 1024px) 64vw, 100vw"
+            className="object-cover object-top"
+          />
+        </div>
+
+        {/* Vague orange → verte en bas à droite */}
+        <span
+          className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+          aria-hidden="true"
+        />
+
+        <div className="mx-auto max-w-7xl px-4 py-[clamp(32px,5vw,56px)] sm:px-6 lg:min-h-[560px]">
+          <div className="relative z-[3] max-w-[560px]">
             <PageBreadcrumb currentLabel={text.title} />
-            <p className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-[#eb9410]">
-              {isArabic ? "أونس سكول" : "ONS School"}
+            <p className="mb-2 mt-4 text-sm font-bold uppercase tracking-[0.15em] text-[#eb9410]">
+              {isArabic ? "أنس سكول" : "ONS School"}
             </p>
-            <h1 className="text-5xl font-extrabold tracking-tight text-[#123568] sm:text-6xl lg:text-7xl">
-              {text.title}
-            </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-[#29456e] sm:text-xl">
+            <div className="flex items-start gap-3">
+              <h1
+                id="contact-hero-title"
+                className="m-0 text-[clamp(40px,5.4vw,66px)] font-[850] leading-[1.05] tracking-[-0.04em] text-[#123568]"
+              >
+                {text.title}
+              </h1>
+              <Sparks className="mt-1 hidden size-[44px] shrink-0 text-[var(--orange)] lg:block" />
+            </div>
+            <p className="mb-0 mt-4 max-w-[440px] text-[clamp(16px,1.8vw,20px)] font-[560] leading-[1.6] text-[#123568]">
               {text.description}
             </p>
-            <span className="mt-5 block h-1 w-36 rounded-full bg-[#f5a623]" aria-hidden="true" />
-          </div>
-          <div className="relative h-64 min-w-0 overflow-hidden rounded-[2rem] shadow-[0_20px_55px_rgba(18,53,104,0.16)] sm:h-80 lg:h-[350px]">
-            <Image
-              src="/images/anas_school_images/fille-contact.png"
-              alt={text.imageAlt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 58vw, 100vw"
-              className="object-cover object-top"
-            />
-            <span className="absolute -bottom-1 -end-1 h-20 w-32 rounded-ss-[100%] bg-[#78ad2c]" aria-hidden="true" />
-            <span className="absolute bottom-0 end-0 h-12 w-28 rounded-ss-[100%] bg-[#f5a623]" aria-hidden="true" />
+            <svg
+              className="mt-4 rtl:-scale-x-100"
+              width="150"
+              height="14"
+              viewBox="0 0 150 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 10 C40 2, 100 2, 147 8"
+                stroke="#f5a623"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+            </svg>
           </div>
         </div>
-        <span className="pointer-events-none absolute -start-10 top-1/4 h-40 w-20 rounded-e-full bg-[#f5a623]/80" aria-hidden="true" />
       </section>
 
-      <section aria-label={isArabic ? "معلومات الاتصال" : "Coordonnées"} className="relative z-10 mx-auto -mt-2 grid max-w-7xl grid-cols-1 gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:gap-4">
+      <section aria-label={isArabic ? "معلومات الاتصال" : "Coordonnées"} className="relative z-10 mx-auto mt-12 grid max-w-7xl grid-cols-1 gap-3 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:gap-4">
         {details.map(({ Icon, title, value }) => (
           <article key={title} className="flex min-h-28 items-center gap-4 rounded-2xl border border-[#dcecff] bg-white/95 p-4 shadow-[0_8px_24px_rgba(18,53,104,0.08)] sm:flex-col sm:justify-center sm:gap-2 sm:text-center">
             <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#eaf4ff] text-[#123568]">

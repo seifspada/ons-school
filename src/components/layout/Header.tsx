@@ -60,11 +60,22 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
               : pathname === "/acceuil"
                 ? `#${id}`
                 : `/acceuil#${id}`;
+
             return (
               <Link
                 href={href}
                 key={id}
-                className={`nav-link${isActive ? " is-active" : ""}${pathname === "/contact" ? " nav-link--contact-active" : ""}`}
+                className={[
+                  "nav-link",
+                  "relative inline-flex items-center justify-center rounded-full px-4 py-2",
+                  "text-[14px] font-[700] transition-[background-color,color,box-shadow] duration-200",
+                  // supprime toute ligne / soulignement (pseudo-éléments)
+                  "after:hidden before:hidden border-b-0",
+                  isActive
+                    ? "is-active bg-[var(--orange)] text-white shadow-[0_6px_16px_rgb(247_135_26_/_30%)]"
+                    : "text-[var(--navy)] hover:bg-[#fff3e3] hover:text-[var(--orange-deep)]",
+                ].join(" ")}
+                style={isActive ? { color: "#fff" } : undefined}
                 aria-current={isActive ? "page" : undefined}
                 onClick={closeMenu}
               >

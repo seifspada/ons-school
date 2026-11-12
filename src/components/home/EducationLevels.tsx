@@ -75,8 +75,8 @@ export function EducationLevels({ lang }: { lang: Language }) {
                 <SchoolImage
                   src={image}
                   alt={alt}
-                  sizes="(max-width: 560px) 42vw, (max-width: 850px) 41vw, (max-width: 1100px) 22vw, 260px"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.045]"
+                  sizes="(max-width: 560px) 90vw, (max-width: 1100px) 60vw, 640px"
+                  className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </div>
             </motion.article>

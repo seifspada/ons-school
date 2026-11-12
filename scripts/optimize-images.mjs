@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const sourceDirectory = path.join(root, "public", "images", "anas_school_images");
+const imageDirectory = path.join(root, "public", "images");
 const outputDirectory = path.join(root, "public", "images", "optimized");
 const skippedFiles = new Set(["homepage-mockup-reference.jpg"]);
 
@@ -14,19 +14,46 @@ function maxWidthFor(filename) {
   return 1200;
 }
 
+function qualityFor(filename) {
+  return filename === "primary-hero.jpg" ? 90 : 83;
+}
+
+async function findImageFiles(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const nestedFiles = await Promise.all(
+    entries.map((entry) => {
+      const entryPath = path.join(directory, entry.name);
+      return entry.isDirectory() ? findImageFiles(entryPath) : [entryPath];
+    }),
+  );
+
+  return nestedFiles.flat();
+}
+
 await mkdir(outputDirectory, { recursive: true });
 
-const filenames = (await readdir(sourceDirectory))
-  .filter((filename) => /\.(jpe?g|png)$/i.test(filename))
-  .filter((filename) => !skippedFiles.has(filename))
+const sources = (await findImageFiles(imageDirectory))
+  .filter((source) => {
+    const relativePath = path.relative(imageDirectory, source);
+    return (
+      !relativePath.startsWith(`optimized${path.sep}`) &&
+      /\.(jpe?g|png)$/i.test(source) &&
+      !skippedFiles.has(path.basename(source))
+    );
+  })
   .sort();
 
 const results = [];
 
-for (const filename of filenames) {
-  const source = path.join(sourceDirectory, filename);
+for (const source of sources) {
+  const relativePath = path.relative(imageDirectory, source);
+  const relativeDirectory = path.dirname(relativePath);
+  const outputSubdirectory =
+    relativeDirectory === "anas_school_images" ? "" : relativeDirectory;
+  const filename = path.basename(source);
+  const destinationDirectory = path.join(outputDirectory, outputSubdirectory);
   const destination = path.join(
-    outputDirectory,
+    destinationDirectory,
     `${path.parse(filename).name}.webp`,
   );
   const image = sharp(source);
@@ -37,15 +64,16 @@ for (const filename of filenames) {
     throw new Error(`Could not read image dimensions: ${source}`);
   }
 
+  await mkdir(destinationDirectory, { recursive: true });
   const targetWidth = Math.min(metadata.width, maxWidthFor(filename));
   const output = await image
     .rotate()
     .resize({ width: targetWidth, withoutEnlargement: true })
-    .webp({ quality: 83, effort: 5 })
+    .webp({ quality: qualityFor(filename), effort: 5 })
     .toFile(destination);
 
   results.push({
-    file: filename,
+    file: relativePath,
     dimensions: `${metadata.width}x${metadata.height}`,
     before: sourceStats.size,
     after: output.size,

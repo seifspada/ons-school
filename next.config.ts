@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     formats: ["image/webp"],
-    qualities: [82],
+    qualities: [75, 82, 90],
   },
   experimental: {
     agentFeedback: true,
@@ -29,5 +29,7 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
+
 
 export default nextConfig;

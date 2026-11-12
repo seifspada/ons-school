@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 import { useSiteLanguage } from "@/src/components/layout/SiteShell";
 import { copy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 import { categoryStyle, formatNewsDate } from "@/src/lib/news/format";
 import type { NewsArticle } from "@/src/lib/news/types";
 
@@ -17,7 +18,7 @@ export default function NewsCard({ article, priority = false }: { article: NewsA
     <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#edf0f3] bg-white p-[9px] shadow-[0_7px_22px_rgb(18_53_104_/_7%)] transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgb(18_53_104_/_12%)]">
       <Link href={`/actualites/${article.slug}`} className="relative block h-[210px] overflow-hidden rounded-[14px] bg-[#eef2f5] max-[560px]:h-[clamp(190px,58vw,250px)]" tabIndex={-1} aria-hidden="true">
         <Image
-          src={article.image.src}
+          src={getOptimizedImageSrc(article.image.src)}
           alt=""
           fill
           priority={priority}

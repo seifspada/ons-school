@@ -41,6 +41,7 @@ export function Testimonials({ lang }: { lang: Language }) {
                     src={testimonial.image}
                     alt={lang === "fr" ? "Portrait illustratif d'un parent" : "صورة توضيحية لولي"}
                     sizes="61px"
+                    unoptimized
                     className="object-cover"
                   />
                 </div>

@@ -47,7 +47,7 @@ export const mockNews: NewsArticle[] = [
     title: { fr: "Une pédagogie active et bienveillante", ar: "بيداغوجيا نشطة ومحفّزة" },
     excerpt: {
       fr: "À ONS School, nous croyons en une éducation qui éveille la curiosité et développe les talents.",
-      ar: "في أونس سكول، نؤمن بتعليم يوقظ الفضول وينمّي المواهب.",
+      ar: "في أنس سكول، نؤمن بتعليم يوقظ الفضول وينمّي المواهب.",
     },
     content: {
       fr: [
@@ -72,7 +72,7 @@ export const mockNews: NewsArticle[] = [
         ar: "تلاميذ يلعبون كرة القدم خلال الدورة بين الأقسام",
       },
     },
-    title: { fr: "Tournoi sportif à ONS School", ar: "دورة رياضية في أونس سكول" },
+    title: { fr: "Tournoi sportif à ONS School", ar: "دورة رياضية في أنس سكول" },
     excerpt: {
       fr: "Nos élèves ont participé avec enthousiasme au tournoi sportif inter-classes.",
       ar: "شارك تلاميذنا بحماس في الدورة الرياضية بين الأقسام.",
@@ -131,7 +131,7 @@ export const mockNews: NewsArticle[] = [
     title: { fr: "La lecture, une clé pour réussir", ar: "القراءة مفتاح النجاح" },
     excerpt: {
       fr: "À ONS School, la lecture fait partie intégrante de notre démarche éducative.",
-      ar: "في أونس سكول، تُعدّ القراءة جزءًا أساسيًا من نهجنا التربوي.",
+      ar: "في أنس سكول، تُعدّ القراءة جزءًا أساسيًا من نهجنا التربوي.",
     },
     content: {
       fr: [

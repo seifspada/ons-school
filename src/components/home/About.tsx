@@ -22,7 +22,7 @@ export function About({ lang }: { lang: Language }) {
           <div className="relative h-[305px] overflow-hidden rounded-3xl bg-[#e8f1f5] shadow-[0_14px_36px_rgb(18_53_104_/_10%)] max-[850px]:h-[260px] max-[560px]:h-[clamp(210px,61vw,290px)] max-[560px]:rounded-[19px] [&>img]:object-cover">
             <SchoolImage
               src="/images/anas_school_images/school-building.jpg"
-              alt={lang === "fr" ? "Bâtiment scolaire ONS School" : "مبنى مدرسة أونس سكول"}
+              alt={lang === "fr" ? "Bâtiment scolaire ONS School" : "مبنى مدرسة أنس سكول"}
               sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 45vw, 46vw"
             />
           </div>

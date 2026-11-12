@@ -31,6 +31,7 @@ export function News({ lang }: { lang: Language }) {
                   <SchoolImage
                     src={image}
                     alt={article.title}
+                    loading="eager"
                     sizes="(max-width: 560px) 37vw, (max-width: 850px) 48vw, 33vw"
                     className="object-cover transition-transform duration-[450ms] group-hover:scale-[1.06]"
                   />

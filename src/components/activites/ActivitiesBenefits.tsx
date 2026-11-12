@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Brain, CheckCircle2, Heart, Users } from "lucide-react";
 import type { SiteCopy } from "@/src/data/copy";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 
 const benefitsImage = "/images/activities/together.jpg";
 const benefitIcons = [Brain, Users, Heart] as const;
@@ -28,7 +29,7 @@ export default function ActivitiesBenefits({ t, isArabic }: Props) {
           transition={{ duration: 0.5 }}
         >
           <Image
-            src={benefitsImage}
+            src={getOptimizedImageSrc(benefitsImage)}
             alt={t.imageAlt}
             fill
             sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 90vw, 50vw"

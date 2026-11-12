@@ -12,7 +12,7 @@ export const mockPhotos: GalleryPhoto[] = [
     category: "events",
     date: "2025-11-12",
     description: { fr: "Nos élèves célèbrent leurs réussites.", ar: "يحتفل تلاميذنا بنجاحاتهم." },
-    alt: { fr: "Élève recevant un trophée à ONS School", ar: "تلميذ يتسلم كأسًا في أونس سكول" },
+    alt: { fr: "Élève recevant un trophée à ONS School", ar: "تلميذ يتسلم كأسًا في أنس سكول" },
     albumId: "evenements-2025",
   },
   {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getOptimizedImageSrc } from "@/src/lib/images";
 
 export function BrandLockup({ footer = false }: { footer?: boolean }) {
   return (
@@ -10,11 +11,10 @@ export function BrandLockup({ footer = false }: { footer?: boolean }) {
     >
       <span className="brand-symbol">
         <Image
-          src="/images/anas_school_images/logo.png"
+          src={getOptimizedImageSrc("/images/anas_school_images/logo.png")}
           alt="Logo ONS School"
           width={608}
           height={411}
-          unoptimized
           priority={!footer}
         />
       </span>

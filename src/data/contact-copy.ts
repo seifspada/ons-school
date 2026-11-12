@@ -70,7 +70,7 @@ export const contactCopy = {
     breadcrumbHome: "الرئيسية",
     title: "اتصل بنا",
     description: "نحن هنا للإجابة عن جميع أسئلتكم ومساعدتكم.",
-    imageAlt: "تلاميذ أونس سكول في القسم",
+    imageAlt: "تلاميذ أنس سكول في القسم",
     details: [
       { title: "عنواننا", value: "جلمة، سيدي بوزيد، تونس" },
       { title: "الهاتف", value: "رقم الهاتف قيد التأكيد" },

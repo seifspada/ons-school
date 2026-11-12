@@ -1,74 +1,141 @@
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowLeft, ArrowRight, GraduationCap, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, GraduationCap } from "lucide-react";
 import { copy } from "@/src/data/copy";
 import type { Language } from "@/src/lib/types";
 import { SchoolImage } from "@/src/components/ui/SchoolImage";
 
+/* Petits traits décoratifs */
+function Sparks({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 44 44"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M14 6l7 11" />
+      <path d="M27 3l4 14" />
+      <path d="M35 24l-15 5" />
+    </svg>
+  );
+}
+
 export function Hero({ lang }: { lang: Language }) {
   const text = copy[lang];
-  const Arrow = lang === "ar" ? ArrowLeft : ArrowRight;
+  const isArabic = lang === "ar";
+  const Arrow = isArabic ? ArrowLeft : ArrowRight;
 
   return (
     <section
-      className="relative isolate min-h-[514px] bg-[radial-gradient(ellipse_at_68%_7%,rgb(226_240_255_/_76%),transparent_36%),linear-gradient(110deg,#fffdfa_1%,#fff_42%,#f5faff_100%)] py-[34px] pb-5 before:absolute before:-top-px before:start-[-88px] before:z-[-1] before:h-[82%] before:w-[185px] before:rounded-[0_0_90%_0] before:bg-[linear-gradient(160deg,#ffe9be,#fff6e6_68%,transparent)] before:content-[''] max-[850px]:min-h-0 max-[850px]:py-[23px] max-[850px]:pb-4 max-[560px]:pt-[14px]"
+      className="relative overflow-hidden bg-white"
       id="home"
       aria-labelledby="hero-title"
     >
-      <div className="mx-auto grid min-h-[425px] w-[min(1260px,calc(100%-56px))] grid-cols-[minmax(340px,0.79fr)_minmax(0,1.21fr)] items-center gap-[30px] max-[1100px]:grid-cols-[minmax(300px,0.82fr)_minmax(0,1.18fr)] max-[850px]:min-h-0 max-[850px]:w-[calc(100%-42px)] max-[850px]:grid-cols-[minmax(260px,0.85fr)_minmax(0,1.15fr)] max-[850px]:gap-[15px] max-[560px]:w-[calc(100%-36px)] max-[560px]:grid-cols-1 max-[560px]:gap-0">
-        <div className="relative z-[2] py-7 max-[560px]:px-[3px] max-[560px]:pt-5 max-[560px]:pb-3">
+      {/* Forme orange à gauche */}
+      <span
+        className="pointer-events-none absolute start-[-95px] top-[70px] z-[2] h-[250px] w-[150px] rounded-e-full bg-gradient-to-b from-[#ffb12b] to-[#f7871a] max-[560px]:hidden"
+        aria-hidden="true"
+      />
+
+      {/* Image à droite, fondu vers la gauche */}
+      <motion.div
+        className="relative h-[270px] w-full lg:absolute lg:inset-y-0 lg:end-0 lg:h-auto lg:w-[64%] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_36%)] rtl:lg:[mask-image:linear-gradient(to_left,transparent_0%,#000_36%)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.65 }}
+      >
+        <SchoolImage
+          src="/images/anas_school_images/hero-students.jpg"
+          alt={
+            lang === "fr"
+              ? "Deux élèves souriants devant leur école"
+              : "تلميذان سعيدان أمام مدرستهما"
+          }
+          preload
+          sizes="(max-width: 1024px) 100vw, 64vw"
+          className="object-cover object-[center_30%]"
+        />
+      </motion.div>
+
+      {/* Vague orange → verte en bas à droite */}
+      <span
+        className="pointer-events-none absolute -bottom-9 end-[-6%] z-[2] hidden h-[90px] w-[44%] rotate-[-3deg] rounded-[100%] bg-gradient-to-r from-[#f7871a] to-[#7cc42a] lg:block rtl:rotate-[3deg]"
+        aria-hidden="true"
+      />
+
+      <div className="mx-auto w-[min(1260px,calc(100%-56px))] max-[560px]:w-[calc(100%-36px)]">
+        <div className="relative z-[3] py-[clamp(32px,5vw,60px)] lg:min-h-[470px] lg:flex lg:items-center">
           <motion.div
-            className="max-w-[470px] max-[560px]:max-w-full"
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: "easeOut" }}
+            className="max-w-[540px]"
+            initial={{ opacity: 0, x: isArabic ? 20 : -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55 }}
           >
-            <p className="mb-[10px] mt-0 text-[clamp(22px,2.4vw,31px)] font-[780] tracking-[-0.04em] text-[var(--navy)] max-[850px]:text-2xl max-[560px]:mb-[6px] max-[560px]:text-[21px]">{text.hero.eyebrow}</p>
-            <h1 className="m-0 flex flex-col gap-0 leading-[1.05]" id="hero-title">
-              <span className="w-fit font-[Tahoma,Arial,sans-serif] text-[clamp(40px,5vw,66px)] font-[850] tracking-[-0.045em] text-[var(--orange)] max-[850px]:text-[clamp(40px,6vw,54px)] max-[560px]:text-[clamp(45px,13vw,60px)]" lang="ar" dir="rtl">{text.hero.name}</span>
-              <span className="mt-[3px] text-[clamp(36px,4vw,54px)] font-[820] tracking-[-0.055em] text-[var(--brown)] max-[850px]:text-[clamp(34px,5vw,44px)] max-[560px]:text-[clamp(37px,10.5vw,50px)]">{text.hero.englishName}</span>
-            </h1>
-            <p className="mb-[23px] mt-[18px] max-w-[440px] text-[clamp(16px,1.7vw,20px)] font-[650] italic leading-[1.5] text-[var(--navy)] max-[850px]:text-base max-[560px]:mb-4 max-[560px]:mt-3 max-[560px]:max-w-[360px] max-[560px]:text-[15px]">{text.hero.slogan}</p>
-            <div className="flex flex-wrap gap-[10px] max-[850px]:flex-col max-[850px]:items-start max-[560px]:flex-row max-[560px]:gap-2">
-              <a className="button border-transparent bg-[var(--orange)] text-white shadow-[0_7px_18px_rgb(245_166_35_/_21%)] hover:bg-[var(--orange-deep)] hover:shadow-[0_10px_22px_rgb(245_166_35_/_29%)] max-[850px]:min-h-[43px] max-[850px]:text-xs max-[560px]:min-h-[42px] max-[560px]:gap-[6px] max-[560px]:px-3 max-[560px]:text-[11px]" href="#about">
-                <GraduationCap size={19} aria-hidden="true" />
+            <p className="mb-2 mt-0 text-[clamp(20px,2.2vw,28px)] font-[780] tracking-[-0.04em] text-[var(--navy)]">
+              {text.hero.eyebrow}
+            </p>
+
+            <div className="flex items-start gap-3">
+              <h1
+                id="hero-title"
+                className="m-0 flex flex-col leading-[1.05]"
+              >
+                <span
+                  className="w-fit font-[Tahoma,Arial,sans-serif] text-[clamp(42px,5.4vw,68px)] font-[850] tracking-[-0.04em] text-[var(--navy)]"
+                  lang="ar"
+                  dir="rtl"
+                >
+                  {text.hero.name}
+                </span>
+                <span className="mt-[3px] text-[clamp(30px,3.6vw,48px)] font-[820] tracking-[-0.04em] text-[var(--orange)]">
+                  {text.hero.englishName}
+                </span>
+              </h1>
+              <Sparks className="mt-1 hidden size-[44px] text-[var(--orange)] lg:block" />
+            </div>
+
+            <p className="mb-6 mt-4 max-w-[440px] text-[clamp(15px,1.6vw,18px)] font-[600] italic leading-[1.55] text-[var(--navy)]">
+              {text.hero.slogan}
+            </p>
+
+            <div className="flex flex-wrap gap-[10px]">
+              <a
+                className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full bg-[var(--orange)] px-6 text-[14px] font-[740] text-white shadow-[0_8px_20px_rgb(247_135_26_/_30%)] transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-[var(--orange-deep)] max-[560px]:px-4 max-[560px]:text-[12px]"
+                href="#about"
+                style={{ color: "#fff" }}
+              >
+                <GraduationCap size={18} aria-hidden="true" />
                 {text.hero.discover}
-                <Arrow size={17} aria-hidden="true" />
+                <Arrow size={16} aria-hidden="true" />
               </a>
-              <a className="button border-[#d7e0eb] bg-white text-[var(--navy)] hover:border-[var(--navy)] hover:shadow-[0_6px_18px_rgb(18_53_104_/_9%)] max-[850px]:min-h-[43px] max-[850px]:text-xs max-[560px]:min-h-[42px] max-[560px]:gap-[6px] max-[560px]:px-3 max-[560px]:text-[11px]" href="#contact">
+              <a
+                className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-full border-2 border-[var(--navy)] bg-white/90 px-6 text-[14px] font-[740] text-[var(--navy)] transition-colors duration-200 hover:bg-[var(--navy)] hover:text-white max-[560px]:px-4 max-[560px]:text-[12px]"
+                href="#contact"
+              >
                 {text.hero.enroll}
-                <Arrow size={17} aria-hidden="true" />
+                <Arrow size={16} aria-hidden="true" />
               </a>
             </div>
           </motion.div>
         </div>
-        <motion.div
-          className="relative flex min-w-0 items-center self-stretch max-[560px]:mt-[5px] max-[560px]:min-h-[250px]"
-          initial={{ opacity: 0, x: 28, scale: 0.98 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.12, ease: "easeOut" }}
+
+        <a
+          className="relative z-[3] mx-auto mb-3 flex w-fit items-center gap-[7px] text-[11px] font-[650] text-[#77869a]"
+          href="#about"
         >
-          <div className="relative h-[min(405px,39vw)] min-h-[310px] w-full overflow-hidden rounded-[40%_15px_15px_15px] bg-[#e8f2f7] shadow-[0_22px_50px_rgb(35_70_107_/_11%)] max-[850px]:h-[350px] max-[850px]:min-h-[280px] max-[560px]:h-[clamp(250px,72vw,350px)] max-[560px]:min-h-0 max-[560px]:rounded-[33%_13px_13px_13px]">
-            <SchoolImage
-              src="/images/anas_school_images/hero-students.jpg"
-              alt={lang === "fr" ? "Deux élèves souriants devant leur école" : "تلميذان سعيدان أمام مدرستهما"}
-              preload
-              sizes="(max-width: 560px) calc(100vw - 36px), (max-width: 850px) 57vw, (max-width: 1100px) 58vw, 735px"
-              className="object-cover object-center"
-            />
-          </div>
-          <span className="pointer-events-none absolute start-[3%] top-[15px] z-[1] grid size-[55px] place-items-center text-[var(--orange)] animate-[float_5s_ease-in-out_infinite]" aria-hidden="true"><Sparkles /></span>
-          <span className="pointer-events-none absolute end-[4%] top-[16%] z-[1] text-[44px] text-[var(--blue)] animate-[float_4s_ease-in-out_infinite_reverse]" aria-hidden="true">✦</span>
-          <div className="absolute end-[-9px] bottom-[25px] flex rotate-[-5deg] flex-col rounded-[12px_30px_12px_30px] bg-white/[0.94] px-[18px] py-[10px] pb-3 text-[17px] font-[780] italic leading-[1.25] text-[var(--navy)] shadow-[0_9px_22px_rgb(18_53_104_/_10%)] rtl:rotate-[5deg] max-[560px]:end-px max-[560px]:bottom-4 max-[560px]:px-[13px] max-[560px]:py-2 max-[560px]:text-sm">
-            <span>{lang === "fr" ? "Apprendre" : "نتعلم"}</span>
-            <span>{lang === "fr" ? "Grandir" : "ننمو"}</span>
-            <span>{lang === "fr" ? "Réussir" : "ننجح"}</span>
-          </div>
-        </motion.div>
+          <span>{text.hero.scroll}</span>
+          <ArrowDown
+            className="text-[var(--orange-deep)] animate-[nudge-down_1.8s_ease-in-out_infinite]"
+            size={16}
+            aria-hidden="true"
+          />
+        </a>
       </div>
-      <a className="mx-auto mt-[6px] flex w-fit items-center gap-[7px] text-[11px] font-[650] text-[#77869a] max-[560px]:mt-[9px]" href="#about">
-        <span>{text.hero.scroll}</span>
-        <ArrowDown className="text-[var(--orange-deep)] animate-[nudge-down_1.8s_ease-in-out_infinite]" size={16} aria-hidden="true" />
-      </a>
     </section>
   );
 }
+
+export default Hero;
