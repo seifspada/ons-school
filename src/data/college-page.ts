@@ -55,9 +55,9 @@ type CollegePageCopy = {
 
 export const collegeActivityImages: Record<string, string> = {
   sport: "/images/anas_school_images/activity-sport.jpg",
-  robotics: "/images/anas_school_images/activity-robotics.jpg",
-  arts: "/images/anas_school_images/activity-art.jpg",
-  trips: "/images/anas_school_images/activity-trip.jpg",
+  robotics: "/images/anas_school_images/robotique_.jpg",
+  arts: "/images/anas_school_images/art.jpg",
+  trips: "/images/anas_school_images/rondonne.jpg",
 };
 
 export const collegePageCopy = {
@@ -153,8 +153,8 @@ export const collegePageCopy = {
         },
         {
           id: "trips",
-          title: "Sorties scolaires",
-          imageAlt: "Un groupe d’élèves en visite scolaire",
+          title: "Randonnée",
+          imageAlt: "Un groupe d’élèves en randonnée",
         },
       ],
     },
@@ -285,8 +285,8 @@ export const collegePageCopy = {
         },
         {
           id: "trips",
-          title: "الرحلات المدرسية",
-          imageAlt: "مجموعة من التلاميذ في رحلة مدرسية",
+          title: "المشي لمسافات طويلة",
+          imageAlt: "مجموعة من التلاميذ في نزهة مشياً على الأقدام",
         },
       ],
     },

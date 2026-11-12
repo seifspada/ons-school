@@ -10,6 +10,33 @@ import { copy } from "@/src/data/copy";
 import type { Language } from "@/src/lib/types";
 import { BrandLockup } from "./BrandLockup";
 
+const flagClass = "h-4 w-6 shrink-0 rounded-[3px] ring-1 ring-black/15";
+
+function FlagFR() {
+  return (
+    <svg className={flagClass} viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+      <rect width="1" height="2" fill="#0055a4" />
+      <rect x="1" width="1" height="2" fill="#fff" />
+      <rect x="2" width="1" height="2" fill="#ef4135" />
+    </svg>
+  );
+}
+
+function FlagTN() {
+  return (
+    <svg className={flagClass} viewBox="0 0 900 600" aria-hidden="true" focusable="false">
+      <rect width="900" height="600" fill="#e70013" />
+      <circle cx="450" cy="300" r="150" fill="#fff" />
+      <circle cx="450" cy="300" r="120" fill="#e70013" />
+      <circle cx="480" cy="300" r="96" fill="#fff" />
+      <polygon
+        fill="#e70013"
+        points="490,240 504.1,280.6 547.1,281.5 512.8,307.4 525.3,348.5 490,324 454.7,348.5 467.2,307.4 432.9,281.5 475.9,280.6"
+      />
+    </svg>
+  );
+}
+
 type HeaderProps = {
   lang: Language;
   onLanguageChange: (language: Language) => void;
@@ -72,10 +99,11 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
                   // supprime toute ligne / soulignement (pseudo-éléments)
                   "after:hidden before:hidden border-b-0",
                   isActive
-                    ? "is-active bg-[var(--orange)] text-white shadow-[0_6px_16px_rgb(247_135_26_/_30%)]"
+                    ? // Mobile : orange foncé + texte blanc / Desktop (md+) : orange d'origine + texte noir
+                      "is-active !bg-[#ffb12b] !text-white !shadow-[0_6px_16px_rgb(194_87_12_/_35%)] " +
+                      "md:!bg-[var(--orange)] md:!text-black md:!shadow-[0_6px_16px_rgb(247_135_26_/_30%)]"
                     : "text-[var(--navy)] hover:bg-[#fff3e3] hover:text-[var(--orange-deep)]",
                 ].join(" ")}
-                style={isActive ? { color: "#000" } : undefined}
                 aria-current={isActive ? "page" : undefined}
                 onClick={closeMenu}
               >
@@ -91,7 +119,10 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
                 closeMenu();
               }}
               aria-pressed={lang === "fr"}
+              aria-label="Français"
+              className="inline-flex items-center gap-1.5"
             >
+              <FlagFR />
               FR
             </button>
             <span aria-hidden="true">/</span>
@@ -102,7 +133,10 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
                 closeMenu();
               }}
               aria-pressed={lang === "ar"}
+              aria-label="العربية"
+              className="inline-flex items-center gap-1.5"
             >
+              <FlagTN />
               AR
             </button>
           </div>

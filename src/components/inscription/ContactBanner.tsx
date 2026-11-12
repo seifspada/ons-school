@@ -4,8 +4,8 @@ import type { InscriptionCopy } from "@/src/data/inscription-copy";
 
 export default function ContactBanner({ t }: { t: InscriptionCopy }) {
   return (
-    <section className="mx-auto mt-8 max-w-7xl px-4 sm:px-6">
-      <div className="flex flex-col items-center gap-4 rounded-[2rem] bg-gradient-to-r from-[#dcecfb] to-[#eaf4ff] px-6 py-6 text-center sm:flex-row sm:text-start">
+<section className="mx-auto mt-8 mb-8 max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-col items-center gap-4 rounded-[2rem] bg-gradient-to-r from-[#dcecfb] to-[#eaf4ff] px-6 py-6 text-center sm:flex-row sm:text-start">
         <Headset className="h-14 w-14 shrink-0 text-[#0b2e6b]" aria-hidden />
         <div className="flex-1">
           <h2 className="text-xl font-extrabold text-[#0b2e6b]">{t.contact.title}</h2>

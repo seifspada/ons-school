@@ -9,16 +9,27 @@ export const activities = [
   },
   {
     id: "robotics",
-    image: "/images/anas_school_images/activity-robotics.jpg",
+    image: "/images/optimized/activities/robotique.webp",
     title: { fr: "Robotique & informatique", ar: "الروبوتيك والإعلامية" },
     icon: "✦",
   },
   {
     id: "art",
-    image: "/images/optimized/activities/activity-arts.webp",
+    image: "/images/optimized/activities/paint.webp",
     title: { fr: "Arts & créativité", ar: "الفنون والإبداع" },
     icon: "✿",
   },
+  {
+  id: "hiking",
+  image: "/images/optimized/rondonne.webp",
+  title: {
+    fr: "Randonnée & découverte de la nature",
+    ar: "الرحلات الاستكشافية واكتشاف الطبيعة"
+  },
+  icon: "🥾",
+},
+
+
   
  
 ] satisfies {

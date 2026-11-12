@@ -2,16 +2,16 @@ import type { Language } from "@/src/lib/types";
 
 export const newsItems = [
   {
-    id: "sport",
-    image: "/images/anas_school_images/news-sport.jpg",
+    id: "openDay",
+    image: "/images/anas_school_images/journee-ouvert.jpg",
   },
   {
-    id: "science",
-    image: "/images/anas_school_images/news-science.jpg",
+    id: "schoolYear",
+    image: "/images/anas_school_images/rentre-scolaire.jpg",
   },
   {
-    id: "school",
-    image: "/images/anas_school_images/news-school.jpg",
+    id: "sportsDay",
+    image: "/images/anas_school_images/journee-sportive.jpg",
   },
 ] as const;
 

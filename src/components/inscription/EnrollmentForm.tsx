@@ -2,14 +2,13 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import {
-  User, Calendar, Phone, Mail, MapPin, Users, CalendarDays, VenusAndMars,
-  Send, ArrowRight, ArrowLeft, CheckCircle2, Loader2,
+  User, UserRound, Cake, Phone, Mail, MapPin, GraduationCap, CalendarDays,
+  ChevronDown, Send, ArrowRight, ArrowLeft, CheckCircle2, Loader2,
 } from "lucide-react";
 import FileUpload from "./FileUpload";
 import { formConfigs } from "@/src/data/inscription-config";
 import type { FormKind } from "@/src/data/inscription-config";
 import { InscriptionCopy } from "@/src/data/inscription-copy";
-
 
 interface Props {
   kind: FormKind;
@@ -33,25 +32,47 @@ const EMPTY: Values = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^\+?[0-9\s.-]{8,16}$/;
 
+/* 16px sur mobile (évite le zoom auto iOS), 14px dès sm */
 const inputBase =
-  "w-full rounded-2xl border bg-white/80 py-3.5 ps-12 pe-4 text-sm text-[#0b2e6b] placeholder:text-slate-500 " +
+  "block w-full min-h-[52px] rounded-2xl border bg-white/80 py-3 ps-11 pe-4 " +
+  "text-base sm:text-sm text-[#0b2e6b] placeholder:text-slate-500 appearance-none " +
   "outline-none transition focus:border-[#0aa5c9] focus:ring-2 focus:ring-[#0aa5c9]/30";
 
+/* Date : corrige l'alignement/hauteur du rendu natif iOS/Android */
+const dateExtra =
+  "text-start [&::-webkit-date-and-time-value]:text-start " +
+  "[&::-webkit-date-and-time-value]:min-h-[1.5em] [&::-webkit-calendar-picker-indicator]:opacity-60";
+
+const selectExtra = "pe-10 text-ellipsis";
+
+const border = (err?: string) => (err ? "border-red-400" : "border-[#d6e4f5]");
+
 function Field({
-  icon, error, children, full,
-}: { icon: ReactNode; error?: string; children: ReactNode; full?: boolean }) {
+  id, label, required = true, icon, error, children, full, chevron,
+}: {
+  id: string; label: string; required?: boolean; icon: ReactNode;
+  error?: string; children: ReactNode; full?: boolean; chevron?: boolean;
+}) {
   return (
     <div className={full ? "sm:col-span-2" : ""}>
+      <label htmlFor={id} className="mb-1.5 block ps-1 text-xs font-semibold text-[#0b2e6b]">
+        {label}
+        {required && <span className="text-red-500" aria-hidden> *</span>}
+      </label>
       <div className="relative">
-        <span className="pointer-events-none absolute start-4 top-1/2 -translate-y-1/2 text-[#0b2e6b]">
+        <span className="pointer-events-none absolute start-4 top-1/2 z-10 -translate-y-1/2 text-[#0b2e6b]/70">
           {icon}
         </span>
         {children}
+        {chevron && (
+          <ChevronDown
+            className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#0b2e6b]/70"
+            aria-hidden
+          />
+        )}
       </div>
       {error && (
-        <p role="alert" className="mt-1 ps-2 text-xs text-red-600">
-          {error}
-        </p>
+        <p role="alert" className="mt-1 ps-2 text-xs text-red-600">{error}</p>
       )}
     </div>
   );
@@ -155,95 +176,107 @@ export default function EnrollmentForm({ kind, t, isRtl, onSubmit }: Props) {
       <p className="mb-6 mt-1 text-sm text-[#0b2e6b]/80">{copy.intro}</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field icon={<User className="h-5 w-5" />} error={errors.lastName}>
+        <Field id={ids("lastName")} label={t.fields.lastName} icon={<User className="h-5 w-5" />} error={errors.lastName}>
           <input
-            id={ids("lastName")} className={`${inputBase} ${errors.lastName ? "border-red-400" : "border-[#d6e4f5]"}`}
-            placeholder={`${t.fields.lastName} *`} aria-label={t.fields.lastName} autoComplete="family-name"
+            id={ids("lastName")} className={`${inputBase} ${border(errors.lastName)}`}
+            placeholder={t.fields.lastName} autoComplete="family-name"
             aria-invalid={!!errors.lastName} value={values.lastName}
             onChange={(e) => set("lastName", e.target.value)}
           />
         </Field>
 
-        <Field icon={<User className="h-5 w-5" />} error={errors.firstName}>
+        <Field id={ids("firstName")} label={t.fields.firstName} icon={<User className="h-5 w-5" />} error={errors.firstName}>
           <input
-            id={ids("firstName")} className={`${inputBase} ${errors.firstName ? "border-red-400" : "border-[#d6e4f5]"}`}
-            placeholder={`${t.fields.firstName} *`} aria-label={t.fields.firstName} autoComplete="given-name"
+            id={ids("firstName")} className={`${inputBase} ${border(errors.firstName)}`}
+            placeholder={t.fields.firstName} autoComplete="given-name"
             aria-invalid={!!errors.firstName} value={values.firstName}
             onChange={(e) => set("firstName", e.target.value)}
           />
         </Field>
 
-        <Field icon={<Calendar className="h-5 w-5" />} error={errors.birthDate}>
+        {/* Date de naissance */}
+        <Field
+          id={ids("birthDate")}
+          label={`${t.fields.birthDate} (${t.fields.birthDateHint})`}
+          icon={<Cake className="h-5 w-5" />}
+          error={errors.birthDate}
+        >
           <input
-            id={ids("birthDate")} type="date"
-            className={`${inputBase} ${errors.birthDate ? "border-red-400" : "border-[#d6e4f5]"}`}
-            aria-label={`${t.fields.birthDate} (${t.fields.birthDateHint})`}
+            id={ids("birthDate")} type="date" min="1990-01-01"
+            className={`${inputBase} ${dateExtra} ${border(errors.birthDate)} ${values.birthDate ? "" : "text-slate-500"}`}
             aria-invalid={!!errors.birthDate} value={values.birthDate}
             onChange={(e) => set("birthDate", e.target.value)}
           />
         </Field>
 
-        <Field icon={<VenusAndMars className="h-5 w-5" />} error={errors.sex}>
+        {/* Sexe */}
+        <Field
+          id={ids("sex")} label={t.fields.sex}
+          icon={<UserRound className="h-5 w-5" />} error={errors.sex} chevron
+        >
           <select
-            id={ids("sex")} className={`${inputBase} ${errors.sex ? "border-red-400" : "border-[#d6e4f5]"}`}
-            aria-label={t.fields.sex} aria-invalid={!!errors.sex} value={values.sex}
+            id={ids("sex")}
+            className={`${inputBase} ${selectExtra} ${border(errors.sex)} ${values.sex ? "" : "text-slate-500"}`}
+            aria-invalid={!!errors.sex} value={values.sex}
             onChange={(e) => set("sex", e.target.value)}
           >
-            <option value="">{t.fields.sex} * — {t.fields.select}</option>
+            <option value="">{t.fields.select}</option>
             <option value="male">{t.fields.male}</option>
             <option value="female">{t.fields.female}</option>
           </select>
         </Field>
 
-        <Field icon={<Phone className="h-5 w-5" />} error={errors.phone}>
+        <Field id={ids("phone")} label={t.fields.phone} icon={<Phone className="h-5 w-5" />} error={errors.phone}>
           <input
             id={ids("phone")} type="tel" inputMode="tel" dir="ltr"
-            className={`${inputBase} text-start ${errors.phone ? "border-red-400" : "border-[#d6e4f5]"}`}
-            placeholder={`${t.fields.phone} *`} aria-label={t.fields.phone} autoComplete="tel"
+            className={`${inputBase} text-start ${border(errors.phone)}`}
+            placeholder="+216 ..." autoComplete="tel"
             aria-invalid={!!errors.phone} value={values.phone}
             onChange={(e) => set("phone", e.target.value)}
           />
         </Field>
 
-        <Field icon={<Mail className="h-5 w-5" />} error={errors.email}>
+        <Field id={ids("email")} label={t.fields.email} icon={<Mail className="h-5 w-5" />} error={errors.email}>
           <input
-            id={ids("email")} type="email" dir="ltr"
-            className={`${inputBase} text-start ${errors.email ? "border-red-400" : "border-[#d6e4f5]"}`}
-            placeholder={`${t.fields.email} *`} aria-label={t.fields.email} autoComplete="email"
+            id={ids("email")} type="email" inputMode="email" dir="ltr"
+            className={`${inputBase} text-start ${border(errors.email)}`}
+            placeholder="exemple@mail.com" autoComplete="email"
             aria-invalid={!!errors.email} value={values.email}
             onChange={(e) => set("email", e.target.value)}
           />
         </Field>
 
-        <Field full icon={<MapPin className="h-5 w-5" />} error={errors.address}>
+        <Field full id={ids("address")} label={t.fields.address} icon={<MapPin className="h-5 w-5" />} error={errors.address}>
           <input
-            id={ids("address")} className={`${inputBase} ${errors.address ? "border-red-400" : "border-[#d6e4f5]"}`}
-            placeholder={`${t.fields.address} *`} aria-label={t.fields.address} autoComplete="street-address"
+            id={ids("address")} className={`${inputBase} ${border(errors.address)}`}
+            placeholder={t.fields.address} autoComplete="street-address"
             aria-invalid={!!errors.address} value={values.address}
             onChange={(e) => set("address", e.target.value)}
           />
         </Field>
 
-        <Field icon={<Users className="h-5 w-5" />} error={errors.level}>
+        <Field id={ids("level")} label={t.fields.level} icon={<GraduationCap className="h-5 w-5" />} error={errors.level} chevron>
           <select
-            id={ids("level")} className={`${inputBase} ${errors.level ? "border-red-400" : "border-[#d6e4f5]"}`}
-            aria-label={t.fields.level} aria-invalid={!!errors.level} value={values.level}
+            id={ids("level")}
+            className={`${inputBase} ${selectExtra} ${border(errors.level)} ${values.level ? "" : "text-slate-500"}`}
+            aria-invalid={!!errors.level} value={values.level}
             onChange={(e) => set("level", e.target.value)}
           >
-            <option value="">{t.fields.level} * — {t.fields.select}</option>
+            <option value="">{t.fields.select}</option>
             {config.levels.map((l) => (
               <option key={l} value={l}>{t.levels[l]}</option>
             ))}
           </select>
         </Field>
 
-        <Field icon={<CalendarDays className="h-5 w-5" />} error={errors.schoolYear}>
+        <Field id={ids("schoolYear")} label={t.fields.schoolYear} icon={<CalendarDays className="h-5 w-5" />} error={errors.schoolYear} chevron>
           <select
-            id={ids("schoolYear")} className={`${inputBase} ${errors.schoolYear ? "border-red-400" : "border-[#d6e4f5]"}`}
-            aria-label={t.fields.schoolYear} aria-invalid={!!errors.schoolYear} value={values.schoolYear}
+            id={ids("schoolYear")}
+            className={`${inputBase} ${selectExtra} ${border(errors.schoolYear)} ${values.schoolYear ? "" : "text-slate-500"}`}
+            aria-invalid={!!errors.schoolYear} value={values.schoolYear}
             onChange={(e) => set("schoolYear", e.target.value)}
           >
-            <option value="">{t.fields.schoolYear} * — {t.fields.select}</option>
+            <option value="">{t.fields.select}</option>
             {config.schoolYears.map((y) => (
               <option key={y} value={y}>{y}</option>
             ))}

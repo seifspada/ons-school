@@ -67,8 +67,8 @@ function Sparks({ className = "" }: { className?: string }) {
   );
 }
 
-/* Ordre = celui de la capture :
-   Maths, Sciences, Français, Anglais, Histoire-Géo, Informatique, Physique-Chimie, SVT */
+/* Ordre des cases = celui de la capture :
+   0 Maths, 1 Sciences, 2 Français, 3 Anglais, 4 Histoire-Géo, 5 Informatique, 6 Physique-Chimie, 7 SVT */
 const subjectIcons: (LucideIcon | "uk")[] = [
   Calculator,
   Atom,
@@ -89,6 +89,29 @@ const subjectTiles = [
   "from-[#ffb21a] to-[#fb9a0b]",
   "from-[#8bd04a] to-[#6cbb2f]",
 ];
+
+/* Trouve la bonne case des tableaux ci-dessus à partir de l'id + du titre
+   de la matière (français ou arabe), au lieu de se fier à la position dans
+   les données. La première règle qui correspond gagne (l'ordre compte). */
+const subjectSlotRules: { test: RegExp; slot: number }[] = [
+  { test: /phys|chim|فيزياء|فيزيائ|كيمياء|كيميائ/, slot: 6 }, // Physique-Chimie
+  { test: /svt|biolog|vie et|حياة/, slot: 7 }, // SVT
+  { test: /scien|علوم/, slot: 1 }, // Sciences
+  { test: /math|رياض/, slot: 0 }, // Maths
+  { test: /fran|french|فرنس/, slot: 2 }, // Français
+  { test: /angl|engl|نجليز/, slot: 3 }, // Anglais
+  { test: /hist|geo|تاريخ|جغراف/, slot: 4 }, // Histoire-Géo
+  { test: /info|comput|علام/, slot: 5 }, // Informatique
+];
+
+function getSubjectSlot(subject: { id: string; title: string }, fallback: number) {
+  const key = `${subject.id} ${subject.title}`
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, ""); // retire les accents
+  const rule = subjectSlotRules.find((r) => r.test.test(key));
+  return rule ? rule.slot : fallback % subjectIcons.length;
+}
 
 const introIcons = [BookOpen, UsersRound, Trophy];
 const introTints = [
@@ -112,7 +135,6 @@ export function CollegePage() {
   return (
     <main className="overflow-x-clip">
       {/* ============ HERO ============ */}
-            {/* ============ HERO ============ */}
       <section
         className="relative overflow-hidden bg-white"
         aria-labelledby="college-hero-title"
@@ -297,10 +319,11 @@ export function CollegePage() {
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {text.subjects.items.map((subject, index) => {
-              const Icon = subjectIcons[index];
+              const slot = getSubjectSlot(subject, index);
+              const Icon = subjectIcons[slot];
               return (
                 <motion.div
-                  className={`flex min-h-[110px] flex-col items-center justify-center gap-2.5 rounded-[14px] bg-gradient-to-br p-3 text-center text-white shadow-[0_8px_20px_rgb(18_53_104_/_14%)] transition-transform duration-200 hover:-translate-y-1 ${subjectTiles[index]}`}
+                  className={`flex min-h-[110px] flex-col items-center justify-center gap-2.5 rounded-[14px] bg-gradient-to-br p-3 text-center text-white shadow-[0_8px_20px_rgb(18_53_104_/_14%)] transition-transform duration-200 hover:-translate-y-1 ${subjectTiles[slot]}`}
                   key={subject.id}
                   initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}

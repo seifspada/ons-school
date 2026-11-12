@@ -77,20 +77,20 @@ export const copy = {
       readMore: "En savoir plus",
       datePending: "Date à confirmer",
       items: {
-        sport: {
-          title: "Journée sportive à ONS School",
+        openDay: {
+          title: "Journée portes ouvertes",
           description:
-            "Une journée placée sous le signe du mouvement, du partage et du plaisir de jouer ensemble.",
+            "Venez découvrir l’école, rencontrer notre équipe et explorer les espaces d’apprentissage.",
         },
-        science: {
-          title: "Fête de la science",
-          description:
-            "Curiosité, expériences et découvertes au programme de cette journée dédiée aux sciences.",
-        },
-        school: {
+        schoolYear: {
           title: "Rentrée scolaire",
           description:
             "Une nouvelle année pour apprendre, faire des rencontres et construire de beaux projets.",
+        },
+        sportsDay: {
+          title: "Journée sportive à ONS School",
+          description:
+            "Une journée placée sous le signe du mouvement, du partage et du plaisir de jouer ensemble.",
         },
       },
     },
@@ -318,17 +318,17 @@ export const copy = {
       readMore: "اكتشفوا المزيد",
       datePending: "التاريخ قيد التأكيد",
       items: {
-        sport: {
-          title: "يوم رياضي في أنس سكول",
-          description: "يوم مليء بالحركة والتعاون ومتعة اللعب معاً.",
+        openDay: {
+          title: "يوم الأبواب المفتوحة",
+          description: "اكتشفوا المدرسة وتعرفوا على فريقنا ومساحات التعلم.",
         },
-        science: {
-          title: "يوم العلوم",
-          description: "الفضول والتجارب والاكتشافات في يوم مخصص للعلوم.",
-        },
-        school: {
+        schoolYear: {
           title: "العودة المدرسية",
           description: "عام جديد للتعلم والتعارف وبناء مشاريع جميلة.",
+        },
+        sportsDay: {
+          title: "يوم رياضي في أنس سكول",
+          description: "يوم مليء بالحركة والتعاون ومتعة اللعب معاً.",
         },
       },
     },

@@ -6,6 +6,7 @@ import type { Language } from "@/src/lib/types";
 import { FloatingContact } from "./FloatingContact";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
+import { ScrollAnimations } from "./ScrollAnimations";
 
 type SiteLanguageContextValue = {
   lang: Language;
@@ -33,6 +34,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <SiteLanguageContext.Provider value={{ lang, setLang }}>
       <div className={`website website--${lang}`} dir={lang === "ar" ? "rtl" : "ltr"}>
+        <ScrollAnimations />
         <Header lang={lang} onLanguageChange={setLang} />
         {children}
         <div id="contact"><Footer lang={lang} /></div>
