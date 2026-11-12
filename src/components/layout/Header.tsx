@@ -75,7 +75,7 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
                     ? "is-active bg-[var(--orange)] text-white shadow-[0_6px_16px_rgb(247_135_26_/_30%)]"
                     : "text-[var(--navy)] hover:bg-[#fff3e3] hover:text-[var(--orange-deep)]",
                 ].join(" ")}
-                style={isActive ? { color: "#fff" } : undefined}
+                style={isActive ? { color: "#000" } : undefined}
                 aria-current={isActive ? "page" : undefined}
                 onClick={closeMenu}
               >
